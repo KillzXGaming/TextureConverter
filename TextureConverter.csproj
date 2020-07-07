@@ -9,11 +9,7 @@
     <Folder Include="Libraries\" />
     <Folder Include="Plugins\" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Toolbox.Core\Toolbox.Core.csproj" />
-  </ItemGroup>
-
+  
   <ItemGroup>
     <Reference Include="CafeLibrary">
       <HintPath>CafeLibrary.dll</HintPath>
