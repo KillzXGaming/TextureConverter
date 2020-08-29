@@ -14,6 +14,9 @@ namespace TextureConverter
                 return;
             }
 
+            OpenTK.GameWindow window = new OpenTK.GameWindow();
+            Runtime.OpenTKInitialized = true;
+
             var file = STFileLoader.OpenFileFormat(args[0]);
             if (file == null)
             {
