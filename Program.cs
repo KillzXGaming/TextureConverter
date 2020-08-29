@@ -8,26 +8,39 @@ namespace TextureConverter
     {
         static void Main(string[] args)
         {
-            string ext = ".png";
-            string directory = "";
+            if (args.Length < 1)
+            {
+                Console.WriteLine("Usage: TextureConverter file [ext] [output]" );
+                return;
+            }
 
             OpenTK.GameWindow window = new OpenTK.GameWindow();
             Runtime.OpenTKInitialized = true;
 
             var file = STFileLoader.OpenFileFormat(args[0]);
-            if (file == null) return;
+            if (file == null)
+            {
+                Console.WriteLine("No files specified");
+                return;
+            }
+
+            string ext = ".png";
+            string directory = System.IO.Path.GetDirectoryName(args[0]).Replace("\\", "/") + "/";
+            Console.WriteLine("Directory: " + directory);
 
             Console.WriteLine($"file {file.FileInfo.FileName} {file.GetType()}");
 
             if (file is STGenericTexture) {
-                ExportTexture((STGenericTexture)file, $"{directory}{((STGenericTexture)file).Name}{ext}");
+                ExportTexture((STGenericTexture)file, $"{directory}{((STGenericTexture)file).Name.Split('.')[0]}{ext}");
             }
             if (file is ITextureContainer)
             {
                 foreach (var tex in ((ITextureContainer)file).TextureList) {
-                    ExportTexture(tex, $"{directory}{tex.Name}{ext}");
+                    ExportTexture(tex, $"{directory}{tex.Name.Split('.')[0]}{ext}");
                 }
             }
+
+            Console.WriteLine("\nConverted the file at " + args[0] + " to " + ext + " format");
         }
 
         static void ExportTexture(STGenericTexture texture, string fileName) {
