@@ -14,9 +14,6 @@ namespace TextureConverter
                 return;
             }
 
-            OpenTK.GameWindow window = new OpenTK.GameWindow();
-            Runtime.OpenTKInitialized = true;
-
             var file = STFileLoader.OpenFileFormat(args[0]);
             if (file == null)
             {
@@ -27,6 +24,10 @@ namespace TextureConverter
             string ext = ".png";
             string directory = System.IO.Path.GetDirectoryName(args[0]).Replace("\\", "/") + "/";
             Console.WriteLine("Directory: " + directory);
+
+            if (args.Length > 1) {
+                ext = args[1];
+            }
 
             Console.WriteLine($"file {file.FileInfo.FileName} {file.GetType()}");
 
